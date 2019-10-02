@@ -15,7 +15,7 @@ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 #
 #get and install proprietary driver Nvidia
 wget http://us.download.nvidia.com/XFree86/Linux-x86_64/430.50/NVIDIA-Linux-x86_64-430.50.run
-bash NVIDIA-Linux-x86_64-*
+sudo bash NVIDIA-Linux-x86_64-*
 
 # install last docker
 sudo yum -y install -y yum-utils \
