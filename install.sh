@@ -35,3 +35,15 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-
 sudo chmod +x /usr/local/bin/docker-compose && \
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
+
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
+sudo yum install -y nvidia-container-toolkit
+sudo systemctl restart docker
+
+#### Test nvidia-smi with the latest official CUDA image
+sudo docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python get-pip.py
+sudo pip install nvidia-docker-compose
