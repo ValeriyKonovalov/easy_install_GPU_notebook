@@ -1,0 +1,39 @@
+sudo yum -y install -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2 
+  
+### install last docker
+sudo yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo && \
+sudo yum -y install docker-ce docker-ce-cli containerd.io && \
+sudo systemctl start docker 
+
+### install  docker-compoce 1.20.1? last 1.24.1(?)
+sudo curl -L "https://github.com/docker/compose/releases/download/1.20.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+sudo chmod +x /usr/local/bin/docker-compose && \
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+### install nvidia-docker
+# https://github.com/NVIDIA/nvidia-docker
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
+sudo yum install -y nvidia-container-toolkit
+sudo systemctl restart docker
+
+#### Test nvidia-smi with the latest official CUDA image
+sudo docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
+sudo docker run --gpus all nvidia/cuda:10.1-base nvidia-smi
+
+### install nvidia-docker-compoce
+# https://github.com/eywalker/nvidia-docker-compose
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+sudo python get-pip.py
+sudo pip install nvidia-docker-compose
+
+### add alias
+# http://hackernoon.storage.googleapis.com/docker-compose-gpu-tensorflow-%EF%B8%8F-a0e2011d36
+echo "alias doc='nvidia-docker-compose'" >> ~/.bashrc
+echo "alias docl='doc logs -f --tail=100'" >> ~/.bashrc
+
+
