@@ -1,0 +1,20 @@
+sudo su
+
+yum -y groupinstall "Development Tools" && \
+yum -y install pciutils wget lshw kernel-devel epel-release && \
+sed -i "s/mirrorlist=https/mirrorlist=http/" /etc/yum.repos.d/epel.repo && \
+yum -y install dkms 
+
+#### Disable nouveau driver by changing the configuration /etc/default/grub file
+# https://linuxconfig.org/how-to-install-the-nvidia-drivers-on-centos-8
+# https://www.tecmint.com/install-nvidia-drivers-in-linux/
+
+echo "blacklist nouveau" >> /etc/modprobe.d/blacklist.conf
+mv /boot/initramfs-$(uname -r).img /boot/initramfs-$(uname -r).img.bak  
+dracut -v /boot/initramfs-$(uname -r).img $(uname -r)
+reboot
+
+### get and install proprietary driver Nvidia
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/430.50/NVIDIA-Linux-x86_64-430.50.run && \
+sudo chmod +x  NVIDIA-Linux-x86_64-430.50.run && \
+sudo ./NVIDIA-Linux-x86_64-430.50.run --kernel-source-path=/usr/src/kernels/3.10.0-1062.1.2.el7.x86_64
