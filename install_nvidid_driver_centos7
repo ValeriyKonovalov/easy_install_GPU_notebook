@@ -18,3 +18,8 @@ reboot
 wget http://us.download.nvidia.com/XFree86/Linux-x86_64/430.50/NVIDIA-Linux-x86_64-430.50.run && \
 sudo chmod +x  NVIDIA-Linux-x86_64-430.50.run && \
 sudo ./NVIDIA-Linux-x86_64-430.50.run --kernel-source-path=/usr/src/kernels/3.10.0-1062.1.2.el7.x86_64
+
+###install vidia-x11-drv-libs
+sudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+sudo rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
+sudo yum install nvidia-x11-drv-libs
