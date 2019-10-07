@@ -1,3 +1,5 @@
+
+
 sudo yum -y install -y yum-utils \
   device-mapper-persistent-data \
   lvm2 
@@ -21,6 +23,11 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.re
 sudo yum install -y nvidia-container-toolkit
 sudo systemctl restart docker
 
+###install vidia-x11-drv-libs
+
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+sudo yum install vidia-x11-drv-libs
+
 #### Test nvidia-smi with the latest official CUDA image
 sudo docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
 sudo docker run --gpus all nvidia/cuda:10.1-base nvidia-smi
@@ -33,7 +40,8 @@ sudo pip install nvidia-docker-compose
 
 ### add alias
 # http://hackernoon.storage.googleapis.com/docker-compose-gpu-tensorflow-%EF%B8%8F-a0e2011d36
-echo "alias doc='nvidia-docker-compose'" >> ~/.bashrc
-echo "alias docl='doc logs -f --tail=100'" >> ~/.bashrc
+echo "alias dc='sudo docker-compose'" >> ~/.bashrc
+echo "alias dcl='dc logs -f --tail=100'" >> ~/.bashrc
 
-
+### remove all images
+# docker rmi -f $(docker images -aq)
