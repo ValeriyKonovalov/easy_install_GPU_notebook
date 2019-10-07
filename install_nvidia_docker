@@ -53,3 +53,7 @@ echo "alias dcl='dc logs -f --tail=100'" >> ~/.bashrc
 
 ### remove all images
 # docker rmi -f $(docker images -aq)
+
+
+### other links
+# https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/994#issue-373992464
