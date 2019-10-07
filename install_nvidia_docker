@@ -24,9 +24,10 @@ sudo yum install -y nvidia-container-toolkit
 sudo systemctl restart docker
 
 ###install vidia-x11-drv-libs
+sudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+sudo rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-4.el7.elrepo.noarch.rpm
+sudo yum install nvidia-x11-drv-libs
 
-rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
-sudo yum install vidia-x11-drv-libs
 
 #### Test nvidia-smi with the latest official CUDA image
 sudo docker run --gpus all nvidia/cuda:9.0-base nvidia-smi
