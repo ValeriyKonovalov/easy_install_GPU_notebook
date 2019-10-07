@@ -46,13 +46,6 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 sudo python get-pip.py
 sudo pip install nvidia-docker-compose
 
-### add alias
-# http://hackernoon.storage.googleapis.com/docker-compose-gpu-tensorflow-%EF%B8%8F-a0e2011d36
-echo "alias dc='sudo docker-compose'" >> ~/.bashrc
-echo "alias dcl='dc logs -f --tail=100'" >> ~/.bashrc
-
-### remove all images
-# docker rmi -f $(docker images -aq)
 
 
 ### other links
