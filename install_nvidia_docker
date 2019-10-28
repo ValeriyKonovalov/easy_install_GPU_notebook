@@ -21,7 +21,7 @@ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo | sudo tee /etc/yum.repos.d/nvidia-docker.repo
 #sudo yum install -y nvidia-container-toolkit  (don't work with docker-compose)
-sudo yum install nvidia-docker2
+sudo yum -y install nvidia-docker2
 cat <<EOF > /etc/docker/daemon.json
 {
   "default-runtime": "nvidia",
